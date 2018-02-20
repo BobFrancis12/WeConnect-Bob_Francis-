@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!--Import Google Icon Font-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!--Import materialize.css-->
+    <link type="text/css" rel="stylesheet" href="/static/materialize/css/materialize.min.css" media="screen,projection" />
+
+    <!--Let browser know website is optimized for mobile-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Home</title>
+</head>
+
+<body>
+
+
+<nav class="nav-extended">
+    <div class="nav-wrapper">
+        <strong href="#" class="brand-logo">WeConnect</strong>
+        <a href="#" data-activates="mobile-demo" class="button-collapse">
+            <i class="material-icons">menu</i>
+        </a>
+        <ul id="nav-mobile" class="right hide-on-med-and-down">
+        <li>
+            <strong>{{ form.name }}</strong>
+        </li>
+        <li>
+            <a href= {{ url_for("logout") }} > logout </a>    
+        </li>
+        </ul>
+        <ul class="side-nav" id="mobile-demo">
+            <li>
+                <strong>{{ form.name }}</strong>
+            </li>
+            <li>
+                <a href= {{ url_for( "logout") }}> logout </a>
+            </li>
+        </ul>
+    </div>
+    <div class="nav-content">
+        <ul class="tabs tabs-transparent">
+            <li class="tab">
+                <a href="#test1">Available businesses</a>
+            </li>
+            <li class="tab">
+                <a class="active" href="#test2">My Businesses</a>
+            </li>
+            
+            <li class="tab">
+                <a href="#test4">Create New Business</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+<div id="test1" class="col s12">Available businesses</div>
+<div id="test2" class="col s12">My Businesses</div>
+<div id="test4" class="col s12">Create New Business</div>
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script type="text/javascript" src="/static/materialize/js/materialize.min.js"></script>
+</body>
+
+</html>
