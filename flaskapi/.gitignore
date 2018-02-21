@@ -1,0 +1,7 @@
+#Virtualenv
+Scripts
+Lib
+tcl
+Include
+*.py[cod]
+
