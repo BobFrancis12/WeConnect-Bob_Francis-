@@ -9,6 +9,7 @@ app = Flask(__name__)
 app.config.from_object(__name__)
 app.config['SECRET_KEY'] = '7d441f27d441f27567d441f2b6176a'
 
+k = []  #Review list
 class User():
     def __init__(self):
         self.Allusers=[]
@@ -25,8 +26,14 @@ class Business():
         self.business=[{
             "id" : "1",
             "name":"Airtel",
-            "category"="telecommunication",
-            "location"="Bugolobi"
+            "category":"Telecommunication",
+            "location":"Bugolobi"
+        },
+        {
+            "id" : "2",
+            "name":"Global",
+            "category":"Transport",
+            "location":"Kireka"
         }]
 
     def add_business(self):
@@ -34,18 +41,7 @@ class Business():
         new_business={ "id":str(uuid.uuid4()), "name":data["name"],"category":data["category"],"location":data["location"]}
         self.business.append(new_business)  
 
-    def get_business(id):
 
-        return [x for x in business if x['id'] == id]
-
-
-    def get_all_business(id):
-        return [self.business=[]]
-
-    def delete_business(id):
-        data1 = get_business(id) 
-        return self.business.remove(data)
-        
 
 @app.route('/api/v1/auth/register', methods=['POST'])
 def register():
@@ -55,50 +51,98 @@ def register():
 
 @app.route('/api/auth/login' , methods=['POST'])
 def login():
-    return ''
-    
+    y=User()
+    y.add_user()
+    data = request.get_json()
+    for i in y.Allusers:
+        hashed_password = generate_password_hash(data["password"], method="sha256")
+        if i["name"]==data["name"] and i["password"]==hashed_password:
+            return jsonify({"Message":"User is logged in"})
+
+   
+            
+        
 @app.route('/api/v1/auth/logout', methods=['POST'])
 def logout():
-    return ''
+    return jsonify({"Message":"User has been logged out"})
+
 
 @app.route('/api/v1/auth/reset-password', methods=['POST'])
 def resetpassword():
-    
-    return ''
+    x=User()
+    x.Allusers
+    data = request.get_json()
+    for i in x.Allusers:
+        if i ["name"]==data["name"]:
+            i["password"]=data["password"]
+
+    return jsonify({"Password has been reset"})
 
 @app.route('/api/v1/businesses', methods=['POST'])
 def buzregister():
-    return ''
+    b=Business()
+    b.add_business()
+    return jsonify({"Business has been created and added to the list":b.business})
 
-@app.route('/api/v1/businesses/<int:>', methods=['PUT'])
-def buzupdate():
-    return ''
 
-@app.route('/api/v1/businesses/<int:>', methods=['DELETE'])
-def buzremove():
-    return ''
+@app.route('/api/v1/businesses/<int:id>', methods=['PUT'])
+def buzupdate(id):
+    b=Business()
+    data = request.get_json()
+    
+    for i in b.business:
+        if i["id"]== id :
+             i["name"]=data["name"]
+             i["category"]=data["category"]
+             i["location"]=data["location"]
+             
+             
+
+    return jsonify({"Business has been updated":b.business})
+
+@app.route('/api/v1/businesses/<int:id>', methods=['DELETE'])
+def buzremove(id):
+    b=Business()
+   
+    for i in b.business:
+        if i["id"]== id :
+            del(i)
+            return jsonify({"Message":"The Business has been deleted"})
+
+
+    return jsonify({"Message":"The Business has been deleted"})
 
 
 @app.route('/api/v1/businesses', methods=['GET'])
 def Allbuz():
-    return ''
+    b=Business()
+    return jsonify({"A list of all businesses":b.business})
 
-@app.route('/api/v1/businesses/<int:>', methods=['GET'])
+
+@app.route('/api/v1/businesses/<int:id>', methods=['GET'])
 def Onebuz():
-    return ''
+    b=Business()
+    for i in b.business:
+        if i["id"]== id :
+            z=i
+    return jsonify({"Business":z})
 
-@app.route('/api/v1/businesses/<int:>/reviews', methods=['POST'])
-def buzreviews():
-    return ''
+@app.route('/api/v1/businesses/<int:id>/reviews', methods=['POST'])
+def buzreviews(id):
+    y=User()
+    for i in y.Allusers:
+            if i["id"]==id:
+                data = request.get_json()
+                new_review={"id":id ,"name":data["review"],"Review":data["review"]}
+                k.append( new_review)
 
-@app.route('/api/v1/businesses/<int:>/reviews', methods=['GET'])
-def Onebuzreviews():
-    return ''
+    
+    return jsonify({"Review has been added":k})
 
-
-
-
-
+@app.route('/api/v1/businesses/<int:id>/reviews', methods=['GET'])
+def Onebuzreviews(id):
+    
+    return jsonify({"All Reviews":k})
 
 
 
