@@ -1,4 +1,4 @@
-from api.views import register, login, logout, resetpassword, buzupdate, buzremove, Allbuz, Onebuz
+from api.views import register, login, logout, reset_password, business_update, remove_business,  One_business, All_business
 import unittest
 import json
 from api.models import User , Business
@@ -33,7 +33,7 @@ class TestApi2(unittest.TestCase):
 class TestApi3(unittest.TestCase):
 
     def setUp(self):
-        self.app = resetpassword()
+        self.app = reset_password()
 
     def test_password_reset_endpoint(self):
         response = self.app.post('/api/v1/auth/reset-password')
@@ -42,7 +42,7 @@ class TestApi3(unittest.TestCase):
 class TestApi4(unittest.TestCase):
 
     def setUp(self):
-        self.app = Allbuz()
+        self.app = All_business()
 
     def test_show_all_businesses(self):
         response = self.app.get('/api/v1/businesses')
@@ -51,7 +51,7 @@ class TestApi4(unittest.TestCase):
 class TestApi5(unittest.TestCase):
 
     def setUp(self):
-        self.app = Onebuz(1)
+        self.app = One_business(1)
 
     def test_show_one_business(self):
         response = self.app.get('/api/v1/businesses/1')
@@ -60,7 +60,7 @@ class TestApi5(unittest.TestCase):
 class TestApi6(unittest.TestCase):
 
     def setUp(self):
-        self.app = buzremove(1)
+        self.app = remove_business(1)
 
     def test_delete(self):
         response = self.app.delete('{}/1'.format('/api/v1/businesses'))
