@@ -37,7 +37,7 @@ def logout():
 
 
 @app.route('/api/v1/auth/reset-password', methods=['POST'])
-def resetpassword():
+def reset_password():
     particular_user = [{"id": 1, "name": "john", "password": 123}]
     data = request.get_json()
     for i in particular_user:
@@ -48,7 +48,7 @@ def resetpassword():
             return response
 
 @app.route('/api/v1/businesses/<int:businessId>', methods=['PUT'])
-def buzupdate(businessId):
+def business_update(businessId):
     business_list=[{
             "id" : "1",
             "name":"Airtel",
@@ -73,7 +73,7 @@ def buzupdate(businessId):
             return response
              
 @app.route('/api/v1/businesses/<int:businessId>', methods=['DELETE'])
-def buzremove(businessId):
+def remove_business(businessId):
     business_list = [{
             "id" : "1",
             "name":"Airtel",
@@ -97,7 +97,7 @@ def buzremove(businessId):
 
 
 @app.route('/api/v1/businesses', methods=['GET'])
-def Allbuz():
+def All_business():
     particular_business= Business()
     response = jsonify(
         {"A list of all businesses": particular_business.business})
@@ -106,7 +106,7 @@ def Allbuz():
 
 
 @app.route('/api/v1/businesses/<int:businessId>', methods=['GET'])
-def Onebuz(businessId):
+def One_business(businessId):
     business_list = [{
             "id" : "1",
             "name":"Airtel",
@@ -127,7 +127,7 @@ def Onebuz(businessId):
             return response
 
 @app.route('/api/v1/businesses/<int:businessId>/reviews', methods=['POST'])
-def buzreviews(businessId):
+def business_reviews(businessId):
     particular_business = Business()
     for i in particular_business.business:
             if i["id"]==businessId:
@@ -141,7 +141,7 @@ def buzreviews(businessId):
     return response
 
 @app.route('/api/v1/businesses/<int:businessId>/reviews', methods=['GET'])
-def Onebuzreviews(businessId):
+def One_business_reviews(businessId):
     
     response=jsonify({"All Reviews":review_list})
     response.status.code=200
